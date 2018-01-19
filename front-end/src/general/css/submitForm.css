@@ -1,0 +1,13 @@
+.btn.btn-primary {
+    display: block;
+    border: none;
+    color: white;
+    background-color: #FF5252;
+    border-radius: 5px;
+}
+
+.btn.btn-primary:hover, .btn.btn-primary:active {
+    color: white;
+    text-decoration: none;
+    background-color: #ffb9b9;
+}
