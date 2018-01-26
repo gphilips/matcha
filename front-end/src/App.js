@@ -1,21 +1,17 @@
 import React from 'react';
-import Header from './general/components/Header';
-import Footer from './general/components/Footer';
-import SignInForm from './general/components/SignInForm';
-import IndexBg from './general/components/IndexBg';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './general/containers/Home';
+import Register from './general/containers/Register';
 
 export default class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <Header />
-
-        <IndexBg>
-            <SignInForm />
-        </IndexBg>
-        
-        <Footer />
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/register" component={Register}/>
+          <Route exact path="/*" component={Home}/>
+        </Switch>
+      </Router>
     );
   }
 }

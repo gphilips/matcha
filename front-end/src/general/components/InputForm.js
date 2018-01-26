@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/inputForm.css';
 
 export default class InputForm extends React.Component {
     render() {

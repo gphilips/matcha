@@ -1,9 +1,13 @@
 import React from 'react';
-import '../css/indexBg.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import '../css/indexLayout.css';
 
-export default class IndexBg extends React.Component {
+export default class IndexLayout extends React.Component {
     render() {
         return (
+          <div className="App">
+            <Header />
             <div className="no-scroll">
                 <div id="bg-img"></div>
 
@@ -11,7 +15,7 @@ export default class IndexBg extends React.Component {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="header-content text-center">
-                                <h1>Be ambitious in <span>love</span>.</h1>
+                                <h1>Because it just <span>matcha</span> your need.</h1>
 
                                 <div className="card">
                                     {this.props.children}
@@ -21,6 +25,8 @@ export default class IndexBg extends React.Component {
                     </div>
                 </div>
             </div>
+            <Footer />
+          </div>
         );
     }
 }

@@ -1,19 +1,19 @@
 #bg-img {
-    background: linear-gradient(rgba(255, 255, 255, 0.5), white), url("/img/bg-landing.jpg") center no-repeat;
+    background: linear-gradient(rgb(255, 175, 189), rgb(255, 195, 160));
     height: 100%;
     width: 100%;
     left: 0;
     position: fixed;
     background-size: cover;
-    -webkit-filter: blur(4px);
-    -moz-filter: blur(4px);
-    -o-filter: blur(4px);
-    -ms-filter: blur(4px);
-    filter: blur(4px);
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
 }
 
 .header-content > h1 {
-    color: #656565;
+    color: #fff;
     font-weight: 200;
     font-size: 40px;
     margin: 10vh 0vw 8vh 0vw;
@@ -25,7 +25,6 @@
 
 .card {
     width: 60vw;
-    height: 35vh;
     border: 1px solid #ebebeb;
     margin: 7vh auto;
 }
