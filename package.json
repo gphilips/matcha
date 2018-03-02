@@ -1,0 +1,12 @@
+{
+  "name": "Matcha",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd front-end && react-scripts start",
+    "server": "cd back-end && nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}

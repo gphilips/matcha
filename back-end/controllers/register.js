@@ -1,7 +1,6 @@
 import * as User from'../models/users.js';
 import errorsMsg from '../utils/checking.js';
-import * as userQuery from '../dbAction/userQuery.js';
-
+import * as userQuery from '../models/userQuery.js';
 
 const register = async (req, res, next) => {
     const { username,
