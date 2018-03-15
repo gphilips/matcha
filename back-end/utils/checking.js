@@ -4,9 +4,6 @@ import moment from 'moment';
 const errorsMsg = async (req) => {
     let errors = [];
 
-    let errUsername = await checkUsername(req);
-    if (errUsername != '')
-        errors.push(errUsername);
     let errPassword = await checkPassword(req);
     if (errPassword != '')
         errors.push(errPassword);
@@ -28,15 +25,6 @@ const errorsMsg = async (req) => {
     return (errors);
 };
 
-const checkUsername = (req) => {
-    let { username } = req.body;
-    let error = '';
-
-    if (!username.match(/^[a-z0-9]{8,20}$/))
-        error = "Your username must have 8 to 20 alphanumeric characters.";
-    return error;
-};
-
 const checkPassword = (req) => {
     let { password, passwordCfm } = req.body;
     let error = '';
@@ -49,11 +37,11 @@ const checkPassword = (req) => {
 };
 
 const checkBirth = (req) => {
-    let birthday = moment(req.body.birthday, "DD/MM/YYYY");
+    let birthday = moment(req.body.birthday, "YYYY-MM-DD");
     let age = moment().diff(birthday, 'years');
     let error = '';
 
-    if (!moment(birthday).isValid() || age > 150)
+    if (!moment(birthday).isValid() || age > 120)
         error = "Your birthday is not valid.";
     else if (age < 18)
         error = "Sorry, but you must be over 18 to register.";
@@ -73,7 +61,7 @@ const checkEmail = (req) => {
     let email = req.body.email;
     let error = '';
 
-    if (!email.match(/^[-a-z0-9_]+@[-a-z0-9_]+\.[a-z]{2,3}$/))
+    if (!email.match(/^[-a-z0-9_.]+@[-a-z0-9_]+\.[a-z]{2,3}$/))
         error = "Your email is not valid.";
     return error;
 };

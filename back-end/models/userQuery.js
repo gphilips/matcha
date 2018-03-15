@@ -1,84 +1,106 @@
-//import User from'../models/users.js';
 import mysql from 'mysql';
-import randtoken from 'rand-token';
-import sendmail from 'sendmail';
-import { dbQuery } from './dbQueries.js';
+import { db } from '../initDb.js';
 
-const getUser = (username, field, where = NULL) => {
-  let req = "SELECT ${username} FROM ${field}";
-  if (where)
-    req += "WHERE ${where}";
-  let result = dbQuery(req);
-  return (result);
+const getUsers = (callback) => {
+    if (db) {
+        const sql = 'SELECT * FROM users';
+        db.query(sql, (err, rows) => {
+            if (err) throw err;
+            else {
+                if (rows) {
+                    callback(null, {
+                        success: true,
+                        message: "Users has been found",
+                        data: rows
+                    });
+                }
+                else {
+                    callback(null, {
+                        success: false,
+                        message: "There is no user registered yet"
+                    });
+                }
+            }
+        })
+    }
+    else
+        console.errors('Cannot connect to the database db_matcha.');
 };
 
-// const setUser = (username, field, where = NULL) => {
-//   let req = "INSERT INTO ${field} (username) ${username}";
-//   if (where)
-//     req += "WHERE ${where}";
-//   let result = dbQuery(req);
-//   return (result);
-// };
+const getUser = (field, value, callback) => {
+    if (db) {
+        const sql = `SELECT * FROM users WHERE ${field} = ?`;
+        db.query(sql, value, (err, row) => {
+            if (err) throw err;
+            else {
+                if (row) {
+                    callback(null, {
+                        success: true,
+                        message: "The user already exist.",
+                        data: row
+                    });
+                }
+                else {
+                    callback(null, {
+                        success: false,
+                        message: "The user doesn't exist.",
+                    });
+                }
+            }
+        })
+    }
+    else
+        console.errors('Cannot connect to the database db_matcha.');
+};
 
+const insertUser = (userData, callback) => {
+    if (db) {
+        const sql = 'INSERT INTO users SET ?';
+        db.query(sql, userData, (err, result) => {
+            if (err) throw err;
+            else {
+                callback(null, {
+                    success: true,
+                    message: "Your account has been successfully created. An email has been sent to confirm your account.",
+                    data: userData
+                });
+            }
+        })
+    }
+    else
+        console.errors('Cannot connect to the database db_matcha.');
+};
 
-
-
-    // User.findOne({[field]: username})
-    // .then(user => {
-    //     return callback(user);
-    // })
-    // .catch(err => {
-    //     console.error('Error: ', err);
-    //     return null;
-    // });
-//};
-
-// const createUser = (req, callback) => {
-//     const token = randtoken.generate(20);
-//     req.confirmToken = token;
-//     User.create(req)
-//     .then(user => {
-//         sendmail({
-//             from: 'no-reply@matcha.com',
-//             to: user.email,
-//             subject: 'Confirm your account',
-//             html: `Your account has been successfully registered.\n
-//                 Click on this link to confirm your account :\n
-//                 ${token} `
-//             }, function(err, reply) {
-//                 console.log(err && err.stack);
-//                 console.dir(reply);
-//             }
-//         );
-//         return callback(true, "An email has been sent to confirm your account.");
-//     })
-//     .catch(err => {
-//         if (err)
-//             return callback(false, err);
-//     });
-// };
-//
-// const getNearestUsers = function(req, res) {
-//     User.geoNear(
-//         {type: "Point", coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]},
-//         {maxDistance: req.query.distance, spherical: true} // maxDistance : 100000
-//     )
-//     .then(users => {
-//         if (!users)
-//             return res.status(500).send({
-//                 success: false,
-//                 message: "There is no user"
-//             });
-//         return res.send(users);
-//     })
-//     .catch(err => {
-//         console.error('Error ', err);
-//         return null;
-//     });
-// };
-
-// module.exports = {
-//     getUser
-//    createUser,
-//    getNearestUsers
-//};
+const updateUser = (field, userData, callback) => {
+    if (db) {
+        const sql = `UPDATE users SET
+                    ${field} = ${db.escape(userData)}
+                    WHERE id = ${userData.id};
+                    `;
+        db.query(sql, userData, (err, result) => {
+            if (err) throw err;
+            else {
+                if (result) {
+                    callback(null, {
+                        success: true,
+                        message: 'The changes has been made.'
+                    });
+                }
+                else {
+                    callback(null, {
+                        success: false,
+                        message: 'Sorry, but the changes has not been made. We cannot find the user.'
+                    });
+                }
+            }
+        })
+    }
+    else
+        console.errors('Cannot connect to the database db_matcha.');
+};
+module.exports = {
+    getUsers,
+    getUser,
+    insertUser,
+    updateUser
+}
