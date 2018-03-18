@@ -5,7 +5,7 @@ import '../css/header.css';
 export default class Header extends React.Component {
     render() {
         return (
-        <Navbar collapseOnSelect>
+        <Navbar collapseOnSelect fixedTop>
     		<Navbar.Header>
     			<Navbar.Brand>
     				<a href="/">Matcha</a>

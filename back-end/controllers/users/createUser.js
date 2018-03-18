@@ -3,8 +3,8 @@ import ipInfo from 'ipInfo';
 import errorsMsg from '../../utils/checking.js';
 import { hashPwd } from '../../utils/hashPwd.js';
 import { sendMail } from '../../utils/sendMail.js';
-import { getLocation } from '../../utils/geolocation.js';
-import userQuery from '../../models/userQuery.js';
+import getLocation from '../../utils/geolocation.js';
+import generalQuery from '../../models/generalQuery.js';
 
 const createUser = async (req, res) => {
     let {
@@ -31,26 +31,26 @@ const createUser = async (req, res) => {
 
     if (!errors[0])
     {
-        userQuery.getUser("email", email, (err, user) => {
-            if (user.data.length == 0)
+        // ipInfo((err, cLoc, {lat,lng}) => {
+        //     if (!err) {
+        //       const loc = cLoc.loc.split(',');
+        //       lat = parseFloat(loc[0]);
+        //       lng = parseFloat(loc[1]);
+        //     }
+        //     else {
+        //       lat = 0;
+        //       lng = 0;
+        //     }
+        //     console.log(lat, lng)
+        // })
+
+        generalQuery.get('users', 'email', email, (user) => {
+            if (!user[0])
             {
                 const token = randtoken.generate(50);
-                let lat;
-                let lng;
-                ipInfo((err, cLoc) => {
-                    if (!err) {
-                      const loc = cLoc.loc.split(',');
-                      lat = parseFloat(loc[0]);
-                      lng = parseFloat(loc[1]);
-                    }
-                    else {
-                      lat = 0;
-                      lng = 0;
-                    }
-                })
-                password = hashPwd(password);
+                const location = JSON.stringify(req.body.location);
                 const userData = {
-                    password,
+                    password: hashPwd(password),
                     birthday,
                     firstName,
                     lastName,
@@ -58,23 +58,36 @@ const createUser = async (req, res) => {
                     gender,
                     orientation,
                     token,
-                    location : {lat, lng}
+                    location
                 };
 
-                userQuery.insertUser(userData, (err, data) => {
-                    if (data) {
+                generalQuery.insert('users', userData, (data) => {
+                    if (data.affectedRows > 0) {
                         sendMail(userData,
                             `Your account has been successfully registered.\n
                             Click on this link to confirm your account :\n
                             http://localhost:3000/auth/${token} `);
-                        return res.status(200).send(data);
+                        res.status(200).send({
+                            success: true,
+                            message: "Your account has been successfully created.\n An email has been sent to confirm your account.",
+                            data: userData
+                        });
                     }
+                    else
+                        console.error("Something went wrong with the function generalQuery.insert().");
+                });
+            }
+            else if (user[0]) {
+                return res.send({
+                    success: false,
+                    message: "This email is already registered.",
+                    user
                 });
             }
             else {
                 return res.send({
-                    message: "This email is already registered.",
-                    user
+                    success: false,
+                    message: "Sorry but, there is an error with the query",
                 });
             }
         });
@@ -87,4 +100,4 @@ const createUser = async (req, res) => {
     }
 };
 
-module.exports = { createUser };
+module.exports = createUser;

@@ -1,6 +1,5 @@
 import express from 'express';
 import session from 'express-session';
-//import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';

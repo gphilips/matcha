@@ -1,15 +1,21 @@
 import express from 'express';
-import { createUser } from '../controllers/users/createUser.js';
-import { getAllUsers, getUser } from '../controllers/users/getUser.js';
-// import { updateUser } from '../controllers/users/updateUser.js';
-// import { deleteUser } from '../controllers/users/deleteUser.js';
+import createUser from '../controllers/users/createUser.js';
+import { getter, getAll } from '../controllers/general/getter.js';
+import updater from '../controllers/general/updater.js';
+import deleter from '../controllers/general/deleter.js';
 
 const router = express.Router();
 
-router.get('/users/get', getAllUsers);
-router.get('/users/get/:id', getUser);
-router.post('/users/create', createUser);
-// router.put('/users/update/:id', updateUser);
-// router.delete('/users/delete/:id', deleteUser);
+//Exemple de requete get et delete :
+// http://localhost:5000/api/users/email?value=greg.philips@gmail.com
+
+//Exemple de requete put :
+// http://localhost:5000/api/users/email?value=greg.philips@yopmail.com&id=22
+
+router.get('/:table', getAll);
+router.get('/:table/:field', getter);
+router.put('/:table/:field', updater);
+router.delete('/:table/:field', deleter);
+router.post('/users', createUser);
 
 module.exports = router;

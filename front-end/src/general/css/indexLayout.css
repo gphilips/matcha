@@ -5,18 +5,13 @@
     left: 0;
     position: fixed;
     background-size: cover;
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -o-filter: blur(2px);
-    -ms-filter: blur(2px);
-    filter: blur(2px);
 }
 
 .header-content > h1 {
     color: #fff;
     font-weight: 200;
     font-size: 40px;
-    margin: 10vh 0vw 8vh 0vw;
+    margin: 8vh 0vw;
 }
 
 .header-content > h1 > span {
@@ -27,6 +22,8 @@
     width: 60vw;
     border: 1px solid #ebebeb;
     margin: 7vh auto;
+    margin-bottom: 15vh;
+    padding: 5vh 0vw;
 }
 .card h1 {
     color: #606060;

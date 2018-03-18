@@ -7,7 +7,7 @@ const db = mysql.createConnection({
 });
 
 function dbQuery(req) {
-    db.query(req, function (err, result) {
+    db.query(req, (err, result) => {
         if (err)
     		{
     			console.error(err);
@@ -18,14 +18,14 @@ function dbQuery(req) {
 }
 
 function initDb() {
-    db.connect(function(err) {
+    db.connect((err) => {
         if (err)
         {
         	console.error('SQL Error:', err);
         	db.end();
         }
         dbQuery("CREATE DATABASE IF NOT EXISTS db_matcha");
-        db.changeUser({database: 'db_matcha'}, function (err) {
+        db.changeUser({database: 'db_matcha'}, (err) => {
         	if (err) throw err;
         });
         dbQuery(`CREATE TABLE IF NOT EXISTS users
@@ -36,7 +36,7 @@ function initDb() {
             password VARCHAR(255),
             token VARCHAR(255),
             gender ENUM('male', 'female', 'both'),
-            orientation ENUM('male', 'female', 'both'),
+            orientation ENUM('straight', 'gay', 'both'),
             birthday DATE,
             location VARCHAR(255),
             available INTEGER(1),

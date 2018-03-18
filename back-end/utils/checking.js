@@ -79,7 +79,7 @@ const checkOrientation = (req) => {
     let orientation = req.body.orientation;
     let error = '';
 
-    if (orientation != 'male' && orientation != 'female' && orientation != 'both')
+    if (orientation != 'straight' && orientation != 'gay' && orientation != 'bisexual')
       error = "Your orientation is not valid.";
     return error;
 };

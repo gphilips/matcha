@@ -4,7 +4,7 @@ import '../css/footer.css';
 export default class Footer extends React.Component {
     render() {
         return (
-            <footer className="footer navbar-fixed-bottom">
+            <footer>
                 <p>&copy; Matcha - gphilips 2018. All Rights Reserved.</p>
             </footer>
         );

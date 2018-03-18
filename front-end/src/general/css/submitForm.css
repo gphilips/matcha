@@ -6,7 +6,7 @@
     border-radius: 5px;
 }
 
-.btn.btn-primary:hover, .btn.btn-primary:active {
+.btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
     color: white;
     text-decoration: none;
     background-color: #ffb9b9;
