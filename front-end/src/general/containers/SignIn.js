@@ -1,34 +1,26 @@
 import React from 'react';
-import RegisterForm from '../components/RegisterForm';
+import SignInForm from '../components/SignInForm';
 import IndexLayout from '../components/IndexLayout';
 import axios from 'axios';
 import { NotificationManager } from 'react-notifications';
 
-export default class Register extends React.Component {
+export default class SignIn extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             username: '',
-            firstName: '',
-            lastName: '',
-            birthday: '',
-            password: '',
-            passwordCfm: '',
-            gender: '',
-            orientation: '',
-            location: ''
+            password: ''
         };
         this.saveState = this.saveState.bind(this);
-        this.createUser = this.createUser.bind(this);
+        this.connectUser = this.connectUser.bind(this);
     }
 
-    createUser() {
+    connectUser() {
         const user = Object.assign({}, this.state);
-        axios.post('/api/users', user).then(({ data }) => {
+        axios.post('/api/users/signin', user).then(({ data }) => {
             const { success, message } = data;
             if (success === true)
-                NotificationManager.success(message, 'Success !', 6000);
+                NotificationManager.success(message, 'Success', 6000);
             else
                 NotificationManager.error(message, 'Sorry but...', 6000);
         })
@@ -36,14 +28,14 @@ export default class Register extends React.Component {
     }
 
     saveState(name, value) {
-        this.setState({ [name]: value });
+      this.setState({ [name]: value });
     }
 
     render() {
         return (
             <IndexLayout>
-                <RegisterForm
-                    onSubmit={this.createUser}
+                <SignInForm
+                    onSubmit={this.connectUser}
                     onChange={this.saveState}
                 />
             </IndexLayout>

@@ -4,6 +4,9 @@ import moment from 'moment';
 const errorsMsg = async (req) => {
     let errors = [];
 
+    let errUsername = await checkUsername(req);
+    if (errUsername != '')
+        errors.push(errUsername);
     let errPassword = await checkPassword(req);
     if (errPassword != '')
         errors.push(errPassword);
@@ -23,6 +26,15 @@ const errorsMsg = async (req) => {
     if (errOrientation != '')
         errors.push(errOrientation);
     return (errors);
+};
+
+const checkUsername = (req) => {
+    let { username } = req.body;
+    let error = '';
+
+    if (!username.match(/^[a-z0-9]{8,20}$/))
+        error = "Your username must have 8 to 20 alphanumeric characters.";
+    return error;
 };
 
 const checkPassword = (req) => {
@@ -84,14 +96,13 @@ const checkOrientation = (req) => {
     return error;
 };
 
-
-const comparePassword = (oldPassword, password) => {
+const comparePassword = async (password, hash) => {
   try {
-    return bcrypt.compareSync(password, oldPassword);
+    return bcrypt.compareSync(password, hash);
   } catch (err) {
     console.error('Error: ', err)
     return null;
   }
 };
 
-module.exports = errorsMsg;
+module.exports = { errorsMsg, comparePassword};

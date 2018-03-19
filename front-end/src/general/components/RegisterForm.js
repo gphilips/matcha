@@ -80,6 +80,14 @@ export default class RegisterForm extends React.Component {
 
                 <InputForm
                     type="text"
+                    name="username"
+                    placeholder="Username"
+                    onChange={this.handleInputChange}
+                    className="form-group inputForm"
+                />
+
+                <InputForm
+                    type="text"
                     name="firstName"
                     placeholder="First Name"
                     onChange={this.handleInputChange}

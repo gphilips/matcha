@@ -8,7 +8,7 @@ export default class Header extends React.Component {
         <Navbar collapseOnSelect fixedTop>
     		<Navbar.Header>
     			<Navbar.Brand>
-    				<a href="/">Matcha</a>
+    				<a href="/signin">Matcha</a>
     			</Navbar.Brand>
     			<Navbar.Toggle />
     		</Navbar.Header>

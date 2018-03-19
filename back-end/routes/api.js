@@ -1,8 +1,9 @@
 import express from 'express';
-import createUser from '../controllers/users/createUser.js';
 import { getter, getAll } from '../controllers/general/getter.js';
 import updater from '../controllers/general/updater.js';
 import deleter from '../controllers/general/deleter.js';
+import createUser from '../controllers/users/createUser.js';
+import signIn from '../controllers/users/signIn.js';
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ router.get('/:table', getAll);
 router.get('/:table/:field', getter);
 router.put('/:table/:field', updater);
 router.delete('/:table/:field', deleter);
+
 router.post('/users', createUser);
+router.post('/users/signin', signIn);
 
 module.exports = router;
