@@ -45,8 +45,8 @@ function initDb() {
             avatar VARCHAR(255),
             tags VARCHAR(255),
             bio TEXT,
-            usersReported TEXT,
-            usersBlocked TEXT
+            reported TEXT,
+            blocked TEXT
         );`);
 
         dbQuery(`CREATE TABLE IF NOT EXISTS photos

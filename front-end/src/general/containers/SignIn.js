@@ -1,6 +1,7 @@
 import React from 'react';
 import SignInForm from '../components/SignInForm';
 import IndexLayout from '../components/IndexLayout';
+import Template from '../components/Template';
 import axios from 'axios';
 import { NotificationManager } from 'react-notifications';
 
@@ -33,13 +34,14 @@ export default class SignIn extends React.Component {
 
     render() {
         return (
-            <IndexLayout>
-                <SignInForm
-                    onSubmit={this.connectUser}
-                    onChange={this.saveState}
-                />
-            </IndexLayout>
+            <Template>
+                <IndexLayout>
+                    <SignInForm
+                        onSubmit={this.connectUser}
+                        onChange={this.saveState}
+                    />
+                </IndexLayout>
+            </Template>
         );
     }
-
 }

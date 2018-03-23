@@ -3,7 +3,7 @@ import { comparePassword } from '../../utils/checking.js';
 import sendMail from '../../utils/sendMail.js';
 
 const signIn = async (req, res) => {
-    const { usernmme, password } = req.body;
+    const { username, password } = req.body;
     generalQuery.get('users', 'username', username, (user) => {
         if (!user[0]) {
             return res.send({

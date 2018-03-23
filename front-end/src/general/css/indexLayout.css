@@ -11,7 +11,7 @@
     color: #fff;
     font-weight: 200;
     font-size: 40px;
-    margin: 8vh 0vw;
+    margin: 7vh 0 0;
 }
 
 .header-content > h1 > span {
@@ -21,8 +21,7 @@
 .card {
     width: 60vw;
     border: 1px solid #ebebeb;
-    margin: 7vh auto;
-    margin-bottom: 21%;
+    margin: 7vh auto 17vh;
     padding: 5vh 0vw;
 }
 .card h1 {

@@ -32,23 +32,9 @@ const createUser = async (req, res) => {
 
     if (!errors[0])
     {
-        // ipInfo((err, cLoc, {lat,lng}) => {
-        //     if (!err) {
-        //       const loc = cLoc.loc.split(',');
-        //       lat = parseFloat(loc[0]);
-        //       lng = parseFloat(loc[1]);
-        //     }
-        //     else {
-        //       lat = 0;
-        //       lng = 0;
-        //     }
-        //     console.log(lat, lng)
-        // })
-
         generalQuery.get('users', 'username', username, (user) => {
             if (!user[0]) {
                 const token = randtoken.generate(50);
-                const location = JSON.stringify(req.body.location);
                 const userData = {
                     username,
                     password: hashPwd(password),
@@ -58,8 +44,7 @@ const createUser = async (req, res) => {
                     email,
                     gender,
                     orientation,
-                    token,
-                    location
+                    token
                 };
 
                 generalQuery.insert('users', userData, (data) => {

@@ -1,14 +1,10 @@
 import React from 'react';
-import { NotificationContainer } from 'react-notifications';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import '../css/indexLayout.css';
 
 export default class IndexLayout extends React.Component {
     render() {
         return (
-          <div className="App">
-            <Header />
+            <div className="App">
                 <div id="bg-img"></div>
                 <div className="container">
                     <div className="row">
@@ -23,9 +19,7 @@ export default class IndexLayout extends React.Component {
                         </div>
                     </div>
                 </div>
-            <NotificationContainer />
-            <Footer />
-          </div>
+            </div>
         );
     }
 }

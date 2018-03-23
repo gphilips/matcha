@@ -8,13 +8,13 @@ export default class Header extends React.Component {
         <Navbar collapseOnSelect fixedTop>
     		<Navbar.Header>
     			<Navbar.Brand>
-    				<a href="/signin">Matcha</a>
+    				<a href="/">Matcha</a>
     			</Navbar.Brand>
     			<Navbar.Toggle />
     		</Navbar.Header>
     		<Navbar.Collapse className="text-center">
     			<Nav pullRight>
-    				<NavItem eventKey={1} href="/signin">
+    				<NavItem eventKey={1} href="/">
     					Sign In
     				</NavItem>
     				<NavItem eventKey={2} href="/register">
