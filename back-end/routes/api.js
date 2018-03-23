@@ -4,6 +4,7 @@ import updater from '../controllers/general/updater.js';
 import deleter from '../controllers/general/deleter.js';
 import createUser from '../controllers/users/createUser.js';
 import signIn from '../controllers/users/signIn.js';
+import activate from '../controllers/users/activate.js';
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.delete('/:table/:field', deleter);
 
 router.post('/users', createUser);
 router.post('/users/signin', signIn);
+router.post('/users/activate', activate);
 
 module.exports = router;

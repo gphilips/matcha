@@ -62,8 +62,6 @@ export default class Register extends React.Component {
     }
 
     render() {
-        console.log(this.state.location);
-
         return (
             <Template>
                 <IndexLayout>

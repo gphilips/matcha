@@ -22,9 +22,9 @@ const signIn = async (req, res) => {
                 else if (user[0].token) {
                     const subject = "Confirm your account";
                     const indication = "Please click this link to confirm your account :";
-                    const link = `<a href="http://localhost:3000/activate?email=${email}&token=${user[0].token}">https://www.matcha.com/confirm</a>`;
+                    const link = `<a href="http://localhost:3000/activate?email=${user[0].email}&token=${user[0].token}">https://www.matcha.com/confirm</a>`;
 
-                    sendMail(email, subject, indication, link);
+                    sendMail(user[0].email, subject, indication, link);
                     return res.send({
                       success: false,
                       message: "Your account hasn't been confirmed. We have sent you an email to activate it.",

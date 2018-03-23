@@ -37,10 +37,10 @@ const insert = (table, userData, callback) => {
     }
 };
 
-const update = (table, field, value, id, callback) => {
+const update = (table, field, value, username, callback) => {
     try {
-        const sql = `UPDATE ${table} SET ${field} = ? WHERE id = ?`;
-        db.query(sql, [value, id], (err, row) => {
+        const sql = `UPDATE ${table} SET ${field} = ? WHERE username = ?`;
+        db.query(sql, [value, username], (err, row) => {
             if (err) throw err;
             callback(row);
         })
