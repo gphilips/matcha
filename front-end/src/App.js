@@ -7,7 +7,8 @@ import Register from './general/containers/Register';
 import utils from './general/components/utils';
 import Activate from './general/containers/Activate';
 import Profile from './profile/containers/Profile';
-
+import Messages from './messages/containers/Messages';
+import Members from './members/containers/Members';
 
 export default class App extends React.Component {
   render() {
@@ -15,10 +16,12 @@ export default class App extends React.Component {
       <Router>
         <Template>
         <Switch>
-            <Route exact path="/register" component={Register}/>
             <PublicRoute exact path="/" component={SignIn}/>
-            <PrivateRoute exact path="/profile/:username" component={Profile}/>
+            <Route exact path="/register" component={Register}/>
             <Route exact path="/activate" component={Activate}/>
+            <PrivateRoute exact path="/profile/:username" component={Profile}/>
+            <PrivateRoute exact path="/messages" component={Messages}/>
+            <PrivateRoute exact path="/members" component={Members}/>
             <Route component={utils.pageNotFound} />
         </Switch>
         </Template>

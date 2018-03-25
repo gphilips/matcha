@@ -1,7 +1,6 @@
 import React from 'react';
 import RegisterForm from '../components/RegisterForm';
 import IndexLayout from '../components/IndexLayout';
-import Template from '../components/Template';
 import axios from 'axios';
 import { NotificationManager } from 'react-notifications';
 
@@ -63,14 +62,12 @@ export default class Register extends React.Component {
 
     render() {
         return (
-            <Template>
                 <IndexLayout>
                     <RegisterForm
                         onSubmit={this.createUser}
                         onChange={this.saveState}
                     />
                 </IndexLayout>
-            </Template>
         );
     }
 
