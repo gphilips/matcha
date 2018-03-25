@@ -1,20 +1,25 @@
 import ipInfo from 'ipInfo';
 
 const getLocation = async (callback) => {
-    ipInfo((err, cLoc) => {
-        let lat;
-        let lng;
-        if (!err) {
-          const loc = cLoc.loc.split(',');
-          lat = parseFloat(loc[0]);
-          lng = parseFloat(loc[1]);
-        }
-        else {
-          lat = 0;
-          lng = 0;
-        }
-        callback([lat, lng])
+    const location = new Promise((resolve, reject) => {
+        ipInfo((err, cLoc) => {
+            let tab = [];
+
+            if (!err) {
+              const loc = cLoc.loc.split(',');
+              tab[0] = parseFloat(loc[0]);
+              tab[1] = parseFloat(loc[1]);
+            }
+            else {
+              tab[0] = 0;
+              tab[1] = 0;
+              reject(err);
+            }
+            const result = tab.join();
+            resolve(result);
+        })
     })
+    return location;
 }
 
 module.exports = getLocation;

@@ -6,20 +6,19 @@ const deleter = async (req, res) => {
     const field = req.params.field;
     const value = req.query.value;
 
-    generalQuery.deleter(table, field, value, (row) => {
-        if (row.affectedRows > 0) {
-            res.status(200).send({
-                success: true,
-                message: `${value} has been deleted successfully.`,
-            });
-        }
-        else {
-            res.send({
-                success: false,
-                message: `Sorry, but ${value} doesn't exist.`,
-            });
-        }
-    })
+    const result = generalQuery.deleter({table, field, value});
+    if (result.affectedRows > 0) {
+        res.status(200).send({
+            success: true,
+            message: `${value} has been deleted successfully.`,
+        });
+    }
+    else {
+        res.send({
+            success: false,
+            message: `Sorry, but ${value} doesn't exist.`,
+        });
+    }
 };
 
 module.exports = deleter;

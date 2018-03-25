@@ -1,0 +1,12 @@
+#avatar {
+    border-radius: 100%;
+    width: 10%;
+    padding: 3vh 0;
+}
+
+#like-btn {
+    display: inline-block;
+    margin: 3vh 0;
+    width: 15vw;
+    font-size: 16px;
+}

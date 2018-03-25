@@ -7,20 +7,19 @@ const updater = async (req, res) => {
     const value = req.query.value;
     const id = req.query.id;
 
-    generalQuery.update(table, field, value, id, (row) => {
-        if (row.affectedRows > 0) {
-            res.status(200).send({
-                success: true,
-                message: `Your change has been updated.`,
-            });
-        }
-        else {
-            res.send({
-                success: false,
-                message: `Sorry but, ${value} doesn't exist.`,
-            });
-        }
-    })
+    const result = await generalQuery.update({table, field, value, id});
+    if (result.affectedRows > 0) {
+        res.status(200).send({
+            success: true,
+            message: `Your change has been updated.`,
+        });
+    }
+    else {
+        res.send({
+            success: false,
+            message: `Sorry but, ${value} doesn't exist.`,
+        });
+    }
 };
 
 module.exports = updater;
