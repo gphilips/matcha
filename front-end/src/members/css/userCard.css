@@ -1,28 +1,23 @@
-.listing-members.card {
-    width: 15vw;
+#listing-members .card {
     margin: 0;
 }
 
-.card {
-    margin: 0;
-}
-
-.card-body {
+#listing-members .card-body {
     height: 18vh;
     margin: 10px 0;
 }
 
-.card-body img {
+#listing-members .card-body img {
     width: 100px;
     height: 100px;
 }
 
-.card-img-top {
+#listing-members .card-img-top {
     width: 100px;
     border-radius: 50%;
     height: 18vh;
 }
 
-.like-btn {
+#listing-members .like-btn {
     margin: 0 auto;
 }

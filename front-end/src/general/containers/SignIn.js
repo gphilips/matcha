@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 import { NotificationManager } from 'react-notifications';
 import SignInForm from '../components/SignInForm';
 import IndexLayout from '../components/IndexLayout';
-import { redirectToProfile } from '../components/utils.js';
+import RedirectToProfile from '../components/RedirectToProfile';
 
 export default class SignIn extends React.Component {
     constructor(props) {
@@ -23,10 +23,10 @@ export default class SignIn extends React.Component {
         axios.post('/api/users/signin', user).then(({ data }) => {
             const { success, message, userData } = data;
             if (success === true && userData) {
-                this.setState({ connected: true });
                 const cookies = new Cookies();
                 cookies.set('token', userData.token, { path: '/' });
                 NotificationManager.success(message, 'Success', 6000);
+                this.setState({ connected: true });
             }
             else
                 NotificationManager.error(message, 'Sorry but...', 6000);
@@ -41,7 +41,7 @@ export default class SignIn extends React.Component {
     render() {
         switch (this.state.connected) {
             case true:
-                return <redirectToProfile username={this.state.username} />;
+                return <RedirectToProfile username={this.state.username} />;
             default:
                 return (
                     <IndexLayout>

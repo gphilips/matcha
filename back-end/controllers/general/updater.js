@@ -5,9 +5,9 @@ const updater = async (req, res) => {
     const table = req.params.table;
     const field = req.params.field;
     const value = req.query.value;
-    const id = req.query.id;
+    const token = req.query.token;
 
-    const result = await generalQuery.update({table, field, value, id});
+    const result = await generalQuery.update({table, field, value, token});
     if (result.affectedRows > 0) {
         res.status(200).send({
             success: true,

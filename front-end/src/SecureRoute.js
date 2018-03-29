@@ -17,7 +17,7 @@ const isAuthenticated = () => {
 const PublicRoute = ({ component, ...props }) => {
   const username = isAuthenticated();
   if (username) {
-    const profile = `/profile/${username}`;
+    const profile = `/members/${username}`;
     return <Redirect to={profile} />;
   }
   return <Route {...props} component={component} />;

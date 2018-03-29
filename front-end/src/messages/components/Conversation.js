@@ -25,7 +25,7 @@ export default class Conversation extends React.Component {
                     </div>
                 </div>
 
-                <div className="row message" id="conversation">
+                <div className="row msg" id="conversation">
                     <div className="row message-body">
                         <div className="col-sm-12 message-main-receiver">
                             <div className="receiver">

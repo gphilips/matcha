@@ -50,10 +50,10 @@ const insert = ({table, userData}) => {
     }
 };
 
-const update = ({table, field, value, username}) => {
+const update = ({table, field, value, token}) => {
     try {
         const user = new Promise((resolve, reject) => {
-            const sql = `UPDATE ${table} SET ${field} = ? WHERE username = ?`;
+            const sql = `UPDATE ${table} SET ${field} = ? WHERE token = ?`;
             db.query(sql, [value, username], (err, row) => {
                 if (err)
                     return reject(err);

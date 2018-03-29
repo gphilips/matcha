@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { NotificationManager } from 'react-notifications';
 import utils from '../components/utils';
+import RedirectToProfile from '../components/RedirectToProfile';
 
 export default class Activate extends React.Component {
     constructor(props) {
@@ -83,7 +84,7 @@ export default class Activate extends React.Component {
         else {
             switch (this.state.auth) {
                 case true:
-                    return <utils.redirectToProfile username={this.state.username} />;
+                    return <RedirectToProfile username={this.state.username} />;
                 case false:
                     return <utils.invalidToken />;
                 default:

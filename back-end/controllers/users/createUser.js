@@ -1,4 +1,4 @@
-import randtoken from 'rand-token';
+import TokenGenerator from 'uuid-token-generator';
 import ipInfo from 'ipInfo';
 import { errorsMsg } from '../../utils/checking.js';
 import { hashPwd } from '../../utils/crypt.js';
@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
     {
         const user = await generalQuery.get({table: 'users', field: 'username', value: username});
         if (!user[0]) {
-            const confirmToken = randtoken.generate(50);
+            const confirmToken = new TokenGenerator(128, TokenGenerator.BASE62).generate();
             const location = await getLocation();
 
             const userData = {

@@ -14,14 +14,14 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-        <Template>
+        <Template location={this.props.location} >
         <Switch>
             <PublicRoute exact path="/" component={SignIn}/>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/activate" component={Activate}/>
-            <PrivateRoute exact path="/profile/:username" component={Profile}/>
-            <PrivateRoute exact path="/messages" component={Messages}/>
             <PrivateRoute exact path="/members" component={Members}/>
+            <PrivateRoute exact path="/members/:username" component={Profile}/>
+            <PrivateRoute exact path="/messages" component={Messages}/>
             <Route component={utils.pageNotFound} />
         </Switch>
         </Template>
