@@ -17,7 +17,7 @@ const updater = async (req, res) => {
     else {
         res.send({
             success: false,
-            message: `Sorry but, ${value} doesn't exist.`,
+            message: `Sorry but, ${field} doesn't exist.`,
         });
     }
 };

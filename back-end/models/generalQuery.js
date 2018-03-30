@@ -54,12 +54,13 @@ const update = ({table, field, value, token}) => {
     try {
         const user = new Promise((resolve, reject) => {
             const sql = `UPDATE ${table} SET ${field} = ? WHERE token = ?`;
-            db.query(sql, [value, username], (err, row) => {
+            db.query(sql, [value, token], (err, row) => {
                 if (err)
                     return reject(err);
                 return resolve(row);
             })
-        })
+        });
+        return user;
     } catch(err) {
         console.error('Cannot connect to the database db_matcha.\n');
     }

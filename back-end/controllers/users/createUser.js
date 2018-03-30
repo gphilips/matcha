@@ -1,5 +1,4 @@
 import TokenGenerator from 'uuid-token-generator';
-import ipInfo from 'ipInfo';
 import { errorsMsg } from '../../utils/checking.js';
 import { hashPwd } from '../../utils/crypt.js';
 import sendMail from '../../utils/sendMail.js';

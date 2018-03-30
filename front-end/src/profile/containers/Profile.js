@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Cover from '../components/Cover';
 import Bio from '../components/Bio';
 import Slider from '../components/Slider';
@@ -11,16 +12,37 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            username: this.props.username,
+            firstName: '',
+            lastName: '',
+            popularity: '',
+            gender: '',
+            orientation: '',
+            lastConnection: '',
+            address: '',
+            bio: '',
+            photos: [],
+            likedBy: [],
+            visitedBy: [],
+            tags: []
         };
-//        this.saveState = this.saveState.bind(this);
+        this.saveState = this.saveState.bind(this);
     }
 
-
+    saveState() {
+        axios.get(`/api/users/username?value=${this.props.username}`).then(({ data }) => {
+            console.log(data)
+            // this.setState({
+            //     username: decoded.username,
+            //     connected: true
+            // })
+        })
+    }
 
     render() {
+        this.saveState();
         return (
-            <div>
+            <div id='profile'>
                 <Cover />
                 <Bio />
                 <div className="container">

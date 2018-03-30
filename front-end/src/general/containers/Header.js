@@ -12,6 +12,7 @@ export default class Header extends React.Component {
 
         this.state = {
             username: '',
+            connected: false,
             nbVisits: 0,
             visitedBy: [],
             nbLikes: 0,
@@ -29,7 +30,7 @@ export default class Header extends React.Component {
             this.socket = io.connect('http://localhost:5000', { query: `token=${token}` });
             global.socket = this.socket;
             const decoded = jwtDecode(token);
-            this.setState({ username: decoded.username })
+            this.setState({ username: decoded.username, connected: true })
         }
     }
 
@@ -38,19 +39,19 @@ export default class Header extends React.Component {
     }
 
     render() {
-        if (this.socket) {
-            const { username } = this.state;
-            return (
-                <UserNavbar
-                    username={username}
-                    // nbVisits={nbVisits}
-                    // nbLikes={nbLikes}
-                    // nbMessages={nbMessages}
-                    // history={this.props.history}
-                />
-            );
+        const { username, connected } = this.state;
+        switch (connected) {
+            case true:
+                return (
+                    <UserNavbar
+                        username={username}
+                        // nbVisits={nbVisits}
+                        // nbLikes={nbLikes}
+                        // nbMessages={nbMessages}
+                    />
+                );
+            default:
+                return <NonUserNavbar />;
         }
-        else
-            return <NonUserNavbar />;
     }
 }

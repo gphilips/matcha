@@ -11,7 +11,7 @@ const getter = async (req, res) => {
         res.send({
             success: true,
             message: `${value} has been found.`,
-            data: row
+            data: user[0]
         });
     }
     else {
@@ -30,7 +30,7 @@ const getAll = async (req, res) => {
         res.status(200).send({
             success: true,
             message: `${table} has been found`,
-            data: rows
+            data: users[0]
         });
     }
     else {
