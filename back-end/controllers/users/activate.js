@@ -1,25 +1,30 @@
 import generalQuery from '../../models/generalQuery.js';
 import { createToken } from '../../utils/crypt.js';
+import moment from 'moment';
 
 const activateUser = async (req, res) => {
     const { email, confirmToken } = req.body;
 
     if (email && confirmToken) {
-        const user = await generalQuery.get({table: 'users', field: 'email', value: email});
+        let user = await generalQuery.get({table: 'users', field: 'email', value: email});
 
         if (user[0] && confirmToken === user[0].confirmToken) {
             const token = await createToken(user[0]);
-            const fields = ['activated', 'confirmToken', 'token', 'connected'];
-            const values = [1, '', token, true];
+            const fields = [];
+            fields['activated'] = 1;
+            fields['confirmToken'] = '';
+            fields['token'] = token;
+            fields['connected'] = true;
+            fields['lastConnection'] = moment().format('L LT');
 
             for (let key in fields) {
-                generalQuery.update({ table: 'users', field : fields[key], value: values[key], username: user[0].username });
+                await generalQuery.update({ table: 'users', field : key, value: fields[key], where: 'username' , whereValue: user[0].username });
             }
 
             return res.send({
                 success: true,
                 message: "Your account has been activated",
-                userData : user[0]
+                userData : await generalQuery.get({table: 'users', field: 'token', value: token})
             });
         }
         else if (user[0].activated === 1) {

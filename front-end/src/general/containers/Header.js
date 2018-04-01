@@ -7,8 +7,8 @@ import UserNavbar from '../components/UserNavbar';
 import '../css/header.css';
 
 export default class Header extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
 
         this.state = {
             username: '',
@@ -25,7 +25,7 @@ export default class Header extends React.Component {
 
     componentDidMount() {
         const cookies = new Cookies();
-        const token = cookies.get('token');
+        const token = cookies.get('token') !== 'null' ? cookies.get('token') : '';
         if (token) {
             this.socket = io.connect('http://localhost:5000', { query: `token=${token}` });
             global.socket = this.socket;
@@ -39,19 +39,20 @@ export default class Header extends React.Component {
     }
 
     render() {
-        const { username, connected } = this.state;
-        switch (connected) {
-            case true:
-                return (
-                    <UserNavbar
-                        username={username}
-                        // nbVisits={nbVisits}
-                        // nbLikes={nbLikes}
-                        // nbMessages={nbMessages}
-                    />
-                );
-            default:
-                return <NonUserNavbar />;
+        const { username } = this.state;
+        const pathname = window.location.pathname.split('/')[1];
+        if ( pathname === 'members' || pathname === 'messages') {
+            return (
+                <UserNavbar
+                    username={username}
+                    // nbVisits={nbVisits}
+                    // nbLikes={nbLikes}
+                    // nbMessages={nbMessages}
+                />
+            );
+        }
+        else {
+            return <NonUserNavbar />;
         }
     }
 }

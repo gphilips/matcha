@@ -1,10 +1,11 @@
 import express from 'express';
-import { getter, getAll } from '../controllers/general/getter.js';
-import updater from '../controllers/general/updater.js';
-import deleter from '../controllers/general/deleter.js';
-import createUser from '../controllers/users/createUser.js';
-import signIn from '../controllers/users/signIn.js';
-import activateUser from '../controllers/users/activate.js';
+import { getter, getAll } from '../controllers/general/getter';
+import updater from '../controllers/general/updater';
+import deleter from '../controllers/general/deleter';
+import createUser from '../controllers/users/createUser';
+import signIn from '../controllers/users/signIn';
+import activateUser from '../controllers/users/activate';
+import { getProfile } from '../controllers/profile/getProfile';
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.delete('/:table/:field', deleter);
 router.post('/users', createUser);
 router.post('/users/signin', signIn);
 router.post('/users/activate', activateUser);
+router.get('/users/profile/:username', getProfile);
 
 module.exports = router;

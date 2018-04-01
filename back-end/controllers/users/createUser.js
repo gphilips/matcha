@@ -32,6 +32,7 @@ const createUser = async (req, res) => {
     if (!errors[0])
     {
         const user = await generalQuery.get({table: 'users', field: 'username', value: username});
+
         if (!user[0]) {
             const confirmToken = new TokenGenerator(128, TokenGenerator.BASE62).generate();
             const location = await getLocation();

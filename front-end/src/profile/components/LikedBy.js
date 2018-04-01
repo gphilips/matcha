@@ -1,16 +1,10 @@
 import React from 'react';
+import UsersLikedBy from './UsersLikedBy';
 import '../css/likedBy.css';
 
 export default class LikedBy extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-//        this.saveState = this.saveState.bind(this);
-    }
-
     render() {
+        const { likedBy } = this.props.profile;
         return (
             <div className="col-md-3 col-sm-6 col-xs-6">
                 <div className="panel panel-default">
@@ -21,18 +15,7 @@ export default class LikedBy extends React.Component {
                         <div className="col-md-12">
                             <table id='liked-by'>
                                 <tbody>
-                                    <tr>
-                                        <td><img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt="" className="avatar-likedby" /></td>
-                                        <td><h5>login</h5></td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt="" className="avatar-likedby" /></td>
-                                        <td><h5>login</h5></td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt="" className="avatar-likedby" /></td>
-                                        <td><h5>login</h5></td>
-                                    </tr>
+                                    <UsersLikedBy likedBy={likedBy} />
                                 </tbody>
                             </table>
                         </div>

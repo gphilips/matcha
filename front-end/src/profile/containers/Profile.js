@@ -6,60 +6,85 @@ import Slider from '../components/Slider';
 import Info from '../components/Info';
 import LikedBy from '../components/LikedBy';
 import VisitedBy from '../components/VisitedBy';
+import utils from '../../general/components/utils';
 import '../css/profile.css';
 
 export default class Profile extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
+
         this.state = {
-            username: this.props.username,
+            username: '',
             firstName: '',
             lastName: '',
             popularity: '',
             gender: '',
             orientation: '',
             lastConnection: '',
-            address: '',
+            location: '',
             bio: '',
+            avatar: '',
+            birthday: '',
             photos: [],
             likedBy: [],
             visitedBy: [],
-            tags: []
+            tags: [],
+            finish: false
         };
-        this.saveState = this.saveState.bind(this);
     }
 
-    saveState() {
-        axios.get(`/api/users/username?value=${this.props.username}`).then(({ data }) => {
-            console.log(data)
-            // this.setState({
-            //     username: decoded.username,
-            //     connected: true
-            // })
-        })
+    componentWillMount() {
+        const profileUser = this.props.match.params.username;
+
+        const decoded = utils.decodedCookie();
+        if (decoded) {
+            axios.get(`/api/users/profile/${profileUser}`).then(({data}) => {
+                this.setState({
+                    username: data.userData.username,
+                    firstName: data.userData.firstName,
+                    lastName: data.userData.lastName,
+                    popularity: data.userData.popularity,
+                    gender: data.userData.gender,
+                    orientation: data.userData.orientation,
+                    lastConnection: data.userData.lastConnection,
+                    location: data.userData.location,
+                    birthday: data.userData.birthday,
+                    avatar: data.userData.avatar,
+                    bio: data.userData.bio,
+                    photos: data.photos,
+                    likedBy: data.likedBy,
+                    visitedBy: data.visitedBy,
+                    tags: data.tags,
+                    finish: true
+                })
+            })
+        }
     }
 
     render() {
-        this.saveState();
-        return (
-            <div id='profile'>
-                <Cover />
-                <Bio />
-                <div className="container">
-                    <div className="row">
-                        <Slider />
+        if (this.state.finish === true) {
+            return (
+                <div id='profile'>
+                    <Cover profile={this.state} />
+                    <Bio profile={this.state} />
+                    <div className="container">
+                        <div className="row">
+                            <Slider profile={this.state} />
+                        </div>
                     </div>
-                </div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 col-sm-12 col-xs-12">
-                            <LikedBy />
-                            <VisitedBy />
-                            <Info />
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 col-sm-12 col-xs-12">
+                                <LikedBy profile={this.state} />
+                                <VisitedBy profile={this.state} />
+                                <Info profile={this.state} />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else
+            return <utils.loading />;
     }
 }

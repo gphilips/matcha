@@ -1,16 +1,12 @@
 import React from 'react';
+import UsersVisitedBy from './UsersVisitedBy';
 import '../css/visitedBy.css';
 
 export default class VisitedBy extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-//        this.saveState = this.saveState.bind(this);
-    }
 
     render() {
+        const { visitedBy } = this.props.profile;
+
         return (
             <div className="col-md-3 col-sm-6 col-xs-6">
                 <div className="panel panel-default">
@@ -21,22 +17,7 @@ export default class VisitedBy extends React.Component {
                         <div className="col-md-12">
                             <table id='visited-by'>
                                 <tbody>
-                                    <tr>
-                                        <td><img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt="" className="avatar-likedby" /></td>
-                                        <td><h5>login</h5></td>
-                                        <td><p>23/03/2018 20h50</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt="" className="avatar-likedby" /></td>
-                                        <td><h5>login</h5></td>
-                                        <td><p>23/03/2018 20h50</p></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt="" className="avatar-likedby" /></td>
-                                        <td><h5>login</h5></td>
-                                        <td><p>23/03/2018 20h50</p></td>
-                                    </tr>
+                                    <UsersVisitedBy visitedBy={visitedBy} />
                                 </tbody>
                             </table>
                         </div>

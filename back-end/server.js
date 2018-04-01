@@ -9,6 +9,7 @@ import socketioJwt from 'socketio-jwt';
 import api from './routes/api';
 import { initDb } from './initDb';
 import socket from './sockets/socketIo';
+import moment from 'moment';
 
 const app = express();
 
@@ -17,6 +18,8 @@ initDb();
 const server = http.createServer(app);
 const io = socketIo.listen(server);
 const users = [];
+
+moment().locale('fr');
 
 io.use(socketioJwt.authorize({
 	secret: 'mybadasssecretkey',

@@ -53,17 +53,18 @@ export default class Activate extends React.Component {
     sendState() {
         const emailToken = Object.assign({}, this.state);
         axios.post('/api/users/activate', emailToken).then(({ data }) => {
-            if (!data.userData.confirmToken && data.userData.activated === 1)
+            const cookieUsername = utils.decodedCookie();
+            if (cookieUsername && cookieUsername === data.userData[0].username)
                 this.setState({ isValid: true });
             else {
                 const { success, message } = data;
 
                 if (success === true) {
-                    const username = data.userData.username;
-                    this.setState({ auth: true, username });
+                    const username = data.userData[0].username;
                     const cookies = new Cookies();
-                    cookies.set('token', data.userData.token, { path: '/' });
+                    cookies.set('token', data.userData[0].token, { path: '/' });
                     NotificationManager.success(message, 'Success !', 6000);
+                    this.setState({ auth: true, username });
                 }
                 else {
                     this.setState({ auth: false });

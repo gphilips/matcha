@@ -24,4 +24,12 @@ const createToken = (user) => {
     return token;
 };
 
-module.exports = { hashPwd, createToken };
+const getUsernameFromToken = (req) => {
+  const token = req.cookies.token !== 'null' ? req.cookies.token : '';
+  if (!token)
+    return ;
+  const decoded = jwt.verify(token, 'mybadasssecretkey');
+  return decoded.username;
+};
+
+module.exports = { hashPwd, createToken, getUsernameFromToken };

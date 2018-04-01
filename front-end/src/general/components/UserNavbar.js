@@ -6,6 +6,8 @@ import '../css/header.css';
 
 export default class UserNavbar extends React.Component {
     render() {
+        const profile = `/members/${this.props.username}`;
+
         return (
             <Navbar collapseOnSelect fixedTop>
         		<Navbar.Header>
@@ -22,11 +24,13 @@ export default class UserNavbar extends React.Component {
                         <NavItem eventKey={2} href='/messages'>
                             Messages <i className="fa fa-comments"></i>
         				</NavItem>
-        				<NavItem eventKey={3} href='/members/{this.props.username}'>
+        				<NavItem eventKey={3} href={profile}>
         					My profile <i className="fa fa-user"></i>
         				</NavItem>
-        					<Logout />
-        			</Nav>
+
+                        <Logout />
+
+                    </Nav>
         		</Navbar.Collapse>
         	</Navbar>
         );

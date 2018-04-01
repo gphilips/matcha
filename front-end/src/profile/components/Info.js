@@ -1,16 +1,45 @@
 import React from 'react';
+import axios from 'axios';
+import moment from 'moment';
+import Tags from './Tag';
 import '../css/info.css';
 
 export default class Info extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super()
         this.state = {
-
-        };
-//        this.saveState = this.saveState.bind(this);
+            age: '',
+            gender: '',
+            orientation: '',
+            latitude: '',
+            longitude: '',
+            address: '',
+            lastConnection: '',
+            tags: ''
+        }
     }
 
+    componentWillMount() {
+        const {
+            birthday,
+            gender,
+            orientation,
+            location,
+            lastConnection
+        } = this.props.profile;
 
+        const age = moment().diff(birthday, 'years');
+        const latitude = location.split(',')[0];
+        const longitude = location.split(',')[1];
+        this.setState({ age, birthday, gender, orientation, latitude, longitude, lastConnection })
+    }
+
+    componentDidMount() {
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=AIzaSyBhsxTkddjmFdZsCPq82usy-ASv1ATzpV0`;
+        axios.get(url).then((data) => {
+            return this.setState({address: data.data.results[0].formatted_address});
+        }).catch(err => console.error('Error: ', err));
+    }
 
     render() {
         return (
@@ -25,32 +54,28 @@ export default class Info extends React.Component {
                                 <tbody>
                                     <tr>
                                         <td><b>Age</b></td>
-                                        <td>25</td>
+                                        <td>{this.state.age}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Gender</b></td>
-                                        <td>Male</td>
+                                        <td>{this.state.gender}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Orientation</b></td>
-                                        <td>Straight</td>
+                                        <td>{this.state.orientation}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Address</b></td>
-                                        <td>Rue des jeux</td>
+                                        <td>{this.state.address}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Last connection</b></td>
-                                        <td>24/03/2018 23h42</td>
+                                        <td>{this.state.lastConnection}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Tags</b></td>
                                         <td>
-                                            <div className='tags'>#tag</div>
-                                            <div className='tags'>#tag</div>
-                                            <div className='tags'>#tag</div>
-                                            <div className='tags'>#tag</div>
-                                            <div className='tags'>#tag</div>
+                                            <Tags tags={this.state.tags} />
                                         </td>
                                     </tr>
                                 </tbody>
