@@ -13,7 +13,7 @@ export default class VisitedBy extends React.Component {
                     <div className="panel-heading">
                         <h4 className="panel-title">Visited by</h4>
                     </div>
-                    <div className="panel-body scoll">
+                    <div className="panel-body scroll">
                         <div className="col-md-12">
                             <table id='visited-by'>
                                 <tbody>

@@ -18,7 +18,7 @@ const getProfile = async (req, res) => {
     const photos = await profileQuery.getPhotos(user.username);
     const tags = await profileQuery.getTags(user.username);
     const visitedBy = await profileQuery.whoVisitedMe(user.username);
-    const likedBy = await profileQuery.wholikedMe(user.username);
+    const likedBy = await profileQuery.whoLikedMe(user.username);
 
     if (myUsername !== username) {
         const blockedByMe = await profileQuery.getBlockedByMe(myUsername);
@@ -61,6 +61,4 @@ const getProfile = async (req, res) => {
     }
 };
 
-module.exports = {
-    getProfile
-}
+module.exports = getProfile;

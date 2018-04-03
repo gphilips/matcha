@@ -20,7 +20,6 @@ export default class Header extends React.Component {
             nbMessages: 0,
             unreadMessages: []
         }
-        this.getMyProfile = this.getMyProfile.bind(this);
     }
 
     componentDidMount() {
@@ -32,10 +31,6 @@ export default class Header extends React.Component {
             const decoded = jwtDecode(token);
             this.setState({ username: decoded.username, connected: true })
         }
-    }
-
-    getMyProfile() {
-
     }
 
     render() {

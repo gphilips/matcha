@@ -36,7 +36,7 @@ function initDb() {
         	\`lastName\` varchar(255) NOT NULL,
         	\`email\` varchar(255) NOT NULL UNIQUE,
         	\`password\` varchar(255) NOT NULL,
-        	\`confirmToken\` varchar(255) UNIQUE,
+        	\`confirmToken\` varchar(255),
         	\`token\` varchar(255) UNIQUE,
         	\`activated\` BOOLEAN NOT NULL DEFAULT '0',
         	\`gender\` varchar(255) NOT NULL,

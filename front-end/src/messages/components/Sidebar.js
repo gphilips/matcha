@@ -1,64 +1,44 @@
 import React from 'react';
+import axios from 'axios';
+import SidebarSearch from './SidebarSearch';
+import SidebarResult from './SidebarResult';
 import '../css/sidebar.css';
 
 export default class Sidebar extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super()
         this.state = {
+            allMatches: []
+        }
+        this.getAllMatches = this.getAllMatches.bind(this);
+    }
 
-        };
-//        this.saveState = this.saveState.bind(this);
+    componentWillMount() {
+        axios.get(`/api/matches/getall`).then(({ data }) => {
+            if (data.success)
+                this.setState({ allMatches: data.matches })
+        })
+    }
+
+    getAllMatches() {
+        const allMatches = this.props.allMatches;
+        if (allMatches) {
+            allMatches.map((match, index) => {
+                return <SidebarResult key={index} match={match} />;
+            })
+        }
+        else
+            return <div className='text-center'><p>There is no matching yet</p></div>;
     }
 
     render() {
+        const allMatches = this.state.allMatches;
         return (
             <div className="col-sm-4 side">
                 <div className="side-one">
-                    <div className="row searchBox">
-                        <div className="col-sm-12 searchBox-inner">
-                            <div className="form-group">
-                                <input id="searchText" type="text" className="form-control" name="searchText" placeholder="Search" />
-                            </div>
-                        </div>
-                    </div>
+                    <SidebarSearch allMatches={allMatches} />
 
-                    <div className="row sideBar">
-                        <div className="row sideBar-body">
-                            <div className="col-sm-3 col-xs-3 sideBar-avatar">
-                                <div className="avatar-icon">
-                                    <img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt='' />
-                                </div>
-                            </div>
-                            <div className="col-sm-9 col-xs-9 sideBar-main">
-                                <div className="row">
-                                    <div className="col-sm-8 col-xs-8 sideBar-name">
-                                        <span className="name-meta">John Doe</span>
-                                    </div>
-                                    <div className="col-sm-4 col-xs-4 pull-right sideBar-time">
-                                        <span className="time-meta pull-right">18:18</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row sideBar-body">
-                            <div className="col-sm-3 col-xs-3 sideBar-avatar">
-                                <div className="avatar-icon">
-                                    <img src="https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg" alt='' />
-                                </div>
-                            </div>
-                            <div className="col-sm-9 col-xs-9 sideBar-main">
-                                <div className="row">
-                                    <div className="col-sm-8 col-xs-8 sideBar-name">
-                                        <span className="name-meta">John Doe</span>
-                                    </div>
-                                    <div className="col-sm-4 col-xs-4 pull-right sideBar-time">
-                                        <span className="time-meta pull-right">18:18</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {this.getAllMatches()}
                 </div>
             </div>
         );

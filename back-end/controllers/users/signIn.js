@@ -40,7 +40,15 @@ const signIn = async (req, res) => {
                 where: 'token',
                 whereValue: user[0].token
             });
-            if (updatedLastConnection.affectedRows > 0) {
+            const updatedConnected = await generalQuery.update({
+                table: 'users',
+                field: 'connected',
+                value: 1,
+                where: 'token',
+                whereValue: user[0].token
+            });
+
+            if (updatedLastConnection.affectedRows > 0 && updatedConnected.affectedRows > 0) {
                 user = await generalQuery.get({table: 'users', field: 'username', value: username});
                 return res.send({
                     success: true,
