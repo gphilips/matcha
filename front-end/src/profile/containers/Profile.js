@@ -57,7 +57,7 @@ export default class Profile extends React.Component {
                     tags: data.tags,
                     finish: true
                 })
-            })
+            }).catch(err => console.error('Error: ', err));
         }
     }
 

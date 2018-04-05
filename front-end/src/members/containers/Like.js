@@ -21,7 +21,7 @@ export default class Like extends React.Component {
         axios.get(`/api/like/get/${username}`).then(({ data }) => {
             if (data.success)
                 this.setState({ likedMe: data.likedMe, likedByMe: data.likedByMe, finish: true })
-        })
+        }).catch(err => console.error('Error: ', err));
     }
 
     setLike() {

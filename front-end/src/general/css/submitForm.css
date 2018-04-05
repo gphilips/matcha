@@ -11,3 +11,7 @@
     text-decoration: none;
     background-color: #ffb9b9;
 }
+
+.btn.btn-edit {
+    margin: 4vh auto;
+}

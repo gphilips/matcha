@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import utils from '../../general/components/utils';
 import '../css/cover.css';
 
@@ -8,8 +9,8 @@ export default class Cover extends React.Component {
         const { username } = this.props.profile;
         let theRightBtn = '';
         if (username === decoded.username) {
-            theRightBtn = <button id='edit-btn' className="btn btn-primary text-center">Edit</button>
-            //theRightBtn = <Edit />;
+            const urlEdit = `/members/${username}/edit`;
+            theRightBtn = <Link to={urlEdit}><button id='edit-btn' className="btn btn-primary text-center">Edit</button></Link>
         } else {
             theRightBtn = <button id='like-btn' className="btn btn-primary text-center">Like <i className="fa fa-heart"></i></button>;
         //    theRightBtn = <Like />
